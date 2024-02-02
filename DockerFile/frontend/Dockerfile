@@ -10,15 +10,3 @@ FROM nginx:latest
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-
-# FROM node:21-alpine3.17 as build
-# WORKDIR /app
-# COPY . .
-# RUN npm install
-
-# # Uncomment the following line to debug npm install issues:
-# RUN ls -la /app/node_modules
-# EXPOSE 80
-
-# # Debugging: Start a Bash shell
-# CMD ["/bin/sh"]

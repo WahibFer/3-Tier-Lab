@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    networks:
+      - 3-Tier-Net
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3500:3500"
+    networks:
+      - 3-Tier-Net
+    volumes:
+      - backend_data:/app
+    depends_on:
+      - mysql
+
+  mysql:
+    build:
+      context: ./mysql
+    env_file:
+      - ./mysql/mysql_env
+    ports:
+      - "3306:3306"
+    networks:
+      - 3-Tier-Net
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+networks:
+  3-Tier-Net:
+    external: true
+
+volumes:
+  backend_data:
+    external: true
+  mysql_data:
+    external: true
+
