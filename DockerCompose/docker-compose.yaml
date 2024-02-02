@@ -35,6 +35,20 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    networks:
+      - 3-Tier-Net
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql
+      # - PMA_USER=wahib
+      # - PMA_PASSWORD=wahib
+      - PMA_PORT=3306
+    depends_on:
+      - mysql
+
 networks:
   3-Tier-Net:
     external: true
